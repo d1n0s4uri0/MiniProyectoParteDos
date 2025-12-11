@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.example.miniproyectoparte2"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.miniproyectoparte2"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -59,6 +59,8 @@ dependencies {
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     // Lifecycle
