@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.miniproyectoparte2.databinding.ActivityHomeBinding
 import com.example.miniproyectoparte2.ui.add.AddProductActivity
 import com.example.miniproyectoparte2.ui.auth.LoginActivity
+import com.example.miniproyectoparte2.ui.detail.DetailProductActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -108,8 +109,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun navigateToDetail(productId: String) {
+        val intent = Intent(this, DetailProductActivity::class.java)
+        intent.putExtra("productId", productId)
+        startActivity(intent)
     }
-
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
