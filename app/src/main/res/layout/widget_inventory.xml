@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:background="@drawable/bg_widget_inventory"
+    android:padding="12dp">
+
+    <!-- Fila superior: pregunta + ojo + saldo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/txtPregunta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="¿Cuánto tengo de inventario?"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/imgToggleSaldo"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginStart="8dp" />
+
+
+        <TextView
+            android:id="@+id/txtSaldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$ ****"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Espacio -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+
+    <!-- Fila inferior: logo + Inventory + Gestionar + + -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/txtInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:textColor="#e7522e"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:id="@+id/txtGestionar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gestionar inventario"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/imgGestionar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_add_orange"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+</LinearLayout>
