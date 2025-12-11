@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.miniproyectoparte2.databinding.ActivityDetailProductBinding
-import com.example.miniproyectoparte2.ui.edit.EditProductActivity
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,11 +69,10 @@ class DetailProductActivity : AppCompatActivity() {
 
         // FAB Editar
         binding.fabEditar.setOnClickListener {
-            val intent = Intent(this, EditProductActivity::class.java)
-            intent.putExtra("productId", productId)
-            startActivity(intent)
+            Toast.makeText(this, "Editar producto aún no está implementado", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun handleDeleteState(state: DetailProductViewModel.DeleteState) {
         when (state) {

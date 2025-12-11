@@ -25,16 +25,18 @@ class DetailProductViewModel @Inject constructor(
 
 
     fun loadProduct(productId: String) {
-        viewModelScope.launch {
-            val result = productRepository.getProductById(productId)
-
-            if (result.isSuccess) {
-                _product.value = result.getOrNull()
-            } else {
-                _product.value = null
-            }
-        }
+        // TODO: implementar consulta por id en el repositorio si se necesita
+        // viewModelScope.launch {
+        //     val result = productRepository.getProductById(productId)
+        //     if (result.isSuccess) {
+        //         _product.value = result.getOrNull()
+        //     } else {
+        //         _product.value = null
+        //     }
+        // }
     }
+
+
 
 
     fun deleteProduct(productId: String) {

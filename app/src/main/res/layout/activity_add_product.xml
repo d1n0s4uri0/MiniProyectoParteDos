@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
         app:navigationIconTint="#FFFFFF"
         app:titleTextColor="#FFFFFF">
 
