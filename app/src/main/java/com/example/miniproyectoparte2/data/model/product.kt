@@ -6,8 +6,8 @@ data class Product(
     val name: String = "",
     val price: Double = 0.0,
     val quantity: Int = 0
-){
-    fun getTotal(): Double{
+) : java.io.Serializable {
+    fun getTotal(): Double {
         return price * quantity
     }
 }

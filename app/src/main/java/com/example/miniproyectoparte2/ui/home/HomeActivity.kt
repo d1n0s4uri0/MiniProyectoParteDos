@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.miniproyectoparte2.data.model.Product
 import com.example.miniproyectoparte2.databinding.ActivityHomeBinding
 import com.example.miniproyectoparte2.ui.add.AddProductActivity
 import com.example.miniproyectoparte2.ui.auth.LoginActivity
@@ -43,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         productAdapter = ProductAdapter { product ->
-            navigateToDetail(product.id)
+            navigateToDetail(product)
         }
 
         binding.productsRecyclerView.apply {
@@ -103,14 +104,17 @@ class HomeActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun navigateToAddProduct() {
-        val intent = Intent(this, AddProductActivity::class.java)
+    private fun navigateToDetail(product: Product) {
+        val intent = Intent(this, DetailProductActivity::class.java)
+        intent.putExtra("productId", product.id)
+        intent.putExtra("product", product)
         startActivity(intent)
     }
 
-    private fun navigateToDetail(productId: String) {
-        val intent = Intent(this, DetailProductActivity::class.java)
-        intent.putExtra("productId", productId)
+
+
+    private fun navigateToAddProduct() {
+        val intent = Intent(this, AddProductActivity::class.java)
         startActivity(intent)
     }
 

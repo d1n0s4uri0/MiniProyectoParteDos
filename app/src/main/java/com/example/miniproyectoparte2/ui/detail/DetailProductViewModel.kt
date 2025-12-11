@@ -15,29 +15,23 @@ class DetailProductViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-
     private val _product = MutableLiveData<Product?>()
     val product: LiveData<Product?> = _product
 
-
-    private val _deleteState = MutableLiveData<DeleteState>()
+    private val _deleteState = MutableLiveData<DeleteState>(DeleteState.Idle)
     val deleteState: LiveData<DeleteState> = _deleteState
 
+    private val _updateState = MutableLiveData<UpdateState>(UpdateState.Idle)
+    val updateState: LiveData<UpdateState> = _updateState
 
     fun loadProduct(productId: String) {
-        // TODO: implementar consulta por id en el repositorio si se necesita
-        // viewModelScope.launch {
-        //     val result = productRepository.getProductById(productId)
-        //     if (result.isSuccess) {
-        //         _product.value = result.getOrNull()
-        //     } else {
-        //         _product.value = null
-        //     }
-        // }
+        // Si luego agregas getProductById al repositorio, lo llamas aquí.
+        // Por ahora puedes usar setProductFromIntent desde la Activity.
     }
 
-
-
+    fun setProductFromIntent(product: Product) {
+        _product.value = product
+    }
 
     fun deleteProduct(productId: String) {
         viewModelScope.launch {
@@ -53,11 +47,45 @@ class DetailProductViewModel @Inject constructor(
         }
     }
 
+    fun updateProduct(id: String, name: String, price: Double, quantity: Int) {
+        viewModelScope.launch {
+            _updateState.value = UpdateState.Loading
+
+            val current = _product.value
+            if (current == null) {
+                _updateState.value = UpdateState.Error("Producto no cargado")
+                return@launch
+            }
+
+            val updated = current.copy(
+                id = id,
+                name = name,
+                price = price,
+                quantity = quantity
+            )
+
+            val result = productRepository.updateProduct(updated)
+
+            _updateState.value = if (result.isSuccess) {
+                _product.value = updated
+                UpdateState.Success
+            } else {
+                UpdateState.Error("Error al actualizar el producto")
+            }
+        }
+    }
 
     sealed class DeleteState {
         object Idle : DeleteState()
         object Loading : DeleteState()
         object Success : DeleteState()
         data class Error(val message: String) : DeleteState()
+    }
+
+    sealed class UpdateState {
+        object Idle : UpdateState()
+        object Loading : UpdateState()
+        object Success : UpdateState()
+        data class Error(val message: String) : UpdateState()
     }
 }
