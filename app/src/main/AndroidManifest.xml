@@ -34,6 +34,13 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <!-- AddProductActivity -->
+        <activity
+            android:name=".ui.add.AddProductActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

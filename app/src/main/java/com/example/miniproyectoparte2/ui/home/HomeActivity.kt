@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.miniproyectoparte2.databinding.ActivityHomeBinding
+import com.example.miniproyectoparte2.ui.add.AddProductActivity
 import com.example.miniproyectoparte2.ui.auth.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,13 +31,17 @@ class HomeActivity : AppCompatActivity() {
         checkUserSession()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadProducts()
+    }
+
     private fun setupUI() {
         supportActionBar?.hide()
     }
 
     private fun setupRecyclerView() {
         productAdapter = ProductAdapter { product ->
-            // Criterio 8 HU 3.0: Click en item va a detalle
             navigateToDetail(product.id)
         }
 
@@ -65,12 +70,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        // Criterio 3 HU 3.0: Logout
         binding.logoutIcon.setOnClickListener {
             logout()
         }
 
-        // Criterio 7 HU 3.0: Agregar producto
         binding.addProductFab.setOnClickListener {
             navigateToAddProduct()
         }
@@ -82,7 +85,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun checkUserSession() {
-        // Criterio 1 HU 3.0: Redirigir a login si no hay sesión
         if (!viewModel.isUserLoggedIn()) {
             navigateToLogin()
         }
@@ -101,6 +103,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun navigateToAddProduct() {
+        val intent = Intent(this, AddProductActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToDetail(productId: String) {
