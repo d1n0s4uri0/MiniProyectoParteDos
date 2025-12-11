@@ -14,7 +14,6 @@ class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    // ========== Estados de UI ==========
 
     private val _loginState = MutableLiveData<LoginState>()
     val loginState: LiveData<LoginState> = _loginState
@@ -28,7 +27,6 @@ class LoginViewModel @Inject constructor(
     private val _passwordError = MutableLiveData<String?>()
     val passwordError: LiveData<String?> = _passwordError
 
-    // ========== Login ==========
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
@@ -44,7 +42,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    // ========== Register ==========
 
     fun register(email: String, password: String) {
         viewModelScope.launch {
@@ -60,16 +57,12 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    // ========== Validaciones (HU 2.0) ==========
 
     fun validateForm(email: String, password: String) {
-        // Criterio 3: Email máximo 40 caracteres
         val isEmailValid = email.isNotEmpty() && email.length <= 40
 
-        // Criterio 5: Password 6-10 números
         val isPasswordValid = password.length in 6..10 && password.all { it.isDigit() }
 
-        // Criterio 5: Mostrar error si password < 6
         _passwordError.value = when {
             password.isEmpty() -> null
             password.length < 6 -> "Mínimo 6 dígitos"
@@ -84,7 +77,7 @@ class LoginViewModel @Inject constructor(
         return authRepository.isUserLoggedIn()
     }
 
-    // ========== Estados Sellados ==========
+
 
     sealed class LoginState {
         object Idle : LoginState()

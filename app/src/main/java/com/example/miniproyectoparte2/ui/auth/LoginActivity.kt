@@ -32,14 +32,12 @@ class LoginActivity : AppCompatActivity() {
         setupObservers()
         setupListeners()
 
-        // Verificar si ya está logueado (Criterio 1 HU 3.0)
         if (viewModel.isUserLoggedIn()) {
             navigateToHome()
         }
     }
 
     private fun setupUI() {
-        // Criterio 1: Fondo negro, sin toolbar
         supportActionBar?.hide()
     }
 
@@ -63,18 +61,17 @@ class LoginActivity : AppCompatActivity() {
         viewModel.passwordError.observe(this) { error ->
             binding.passwordTextInputLayout.error = error
 
-            // Criterio 5: Borde rojo si hay error
+
             val borderColor = if (error != null) {
                 ContextCompat.getColor(this, R.color.error_red)
             } else {
                 ContextCompat.getColor(this, android.R.color.white)
             }
-            // Aquí aplicarías el color al borde
+
         }
     }
 
     private fun setupListeners() {
-        // TextWatchers para validación en tiempo real
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -86,21 +83,18 @@ class LoginActivity : AppCompatActivity() {
         binding.emailEditText.addTextChangedListener(textWatcher)
         binding.passwordEditText.addTextChangedListener(textWatcher)
 
-        // Botón Login (Criterio 9)
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             viewModel.login(email, password)
         }
 
-        // Botón Registrarse (Criterio 13, 14)
         binding.registerButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             viewModel.register(email, password)
         }
 
-        // Toggle visibilidad password (Criterio 6)
         binding.passwordToggleIcon.setOnClickListener {
             togglePasswordVisibility()
         }
@@ -113,7 +107,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateButtonsState(isValid: Boolean) {
-        // Criterio 7, 11, 12: Habilitar/deshabilitar botones
         binding.loginButton.isEnabled = isValid
         binding.registerButton.isEnabled = isValid
 
@@ -141,7 +134,6 @@ class LoginActivity : AppCompatActivity() {
             binding.passwordToggleIcon.setImageResource(R.drawable.ic_eye_open)
         }
 
-        // Mover cursor al final
         binding.passwordEditText.setSelection(binding.passwordEditText.text?.length ?: 0)
     }
 
@@ -156,7 +148,6 @@ class LoginActivity : AppCompatActivity() {
             }
             is LoginViewModel.LoginState.Error -> {
                 showLoading(false)
-                // Criterio 9: Toast con error
                 Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
             }
             is LoginViewModel.LoginState.Idle -> {
@@ -172,12 +163,10 @@ class LoginActivity : AppCompatActivity() {
             }
             is LoginViewModel.RegisterState.Success -> {
                 showLoading(false)
-                // Criterio 14: Ir a Home después de registro exitoso
                 navigateToHome()
             }
             is LoginViewModel.RegisterState.Error -> {
                 showLoading(false)
-                // Criterio 13: Toast con error
                 Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
             }
             is LoginViewModel.RegisterState.Idle -> {

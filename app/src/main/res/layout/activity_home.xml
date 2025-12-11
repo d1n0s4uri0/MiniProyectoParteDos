@@ -25,7 +25,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- Ícono de logout -->
         <ImageView
             android:id="@+id/logoutIcon"
             android:layout_width="24dp"
@@ -37,7 +36,6 @@
             android:contentDescription="Logout" />
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- Contenido temporal (se reemplazará después) -->
     <TextView
         android:id="@+id/placeholderText"
         android:layout_width="wrap_content"
