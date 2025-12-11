@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.cardview:cardview:1.0.0")
 
     // Firebase BOM
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))

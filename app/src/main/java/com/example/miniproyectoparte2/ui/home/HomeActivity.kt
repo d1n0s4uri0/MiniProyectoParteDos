@@ -2,20 +2,20 @@ package com.example.miniproyectoparte2.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.miniproyectoparte2.databinding.ActivityHomeBinding
 import com.example.miniproyectoparte2.ui.auth.LoginActivity
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-
-    @Inject
-    lateinit var auth: FirebaseAuth
+    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var productAdapter: ProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +23,9 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupUI()
+        setupRecyclerView()
+        setupObservers()
         setupListeners()
-
 
         checkUserSession()
     }
@@ -33,20 +34,62 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupListeners() {
-        binding.logoutIcon.setOnClickListener {
-            logout()
+    private fun setupRecyclerView() {
+        productAdapter = ProductAdapter { product ->
+            // Criterio 8 HU 3.0: Click en item va a detalle
+            navigateToDetail(product.id)
+        }
+
+        binding.productsRecyclerView.apply {
+            adapter = productAdapter
+            layoutManager = LinearLayoutManager(this@HomeActivity)
+            setHasFixedSize(true)
         }
     }
 
+    private fun setupObservers() {
+        viewModel.products.observe(this) { products ->
+            productAdapter.submitList(products)
+            updateEmptyState(products.isEmpty())
+        }
+
+        viewModel.isLoading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.error.observe(this) { error ->
+            error?.let {
+                updateEmptyState(true)
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        // Criterio 3 HU 3.0: Logout
+        binding.logoutIcon.setOnClickListener {
+            logout()
+        }
+
+        // Criterio 7 HU 3.0: Agregar producto
+        binding.addProductFab.setOnClickListener {
+            navigateToAddProduct()
+        }
+    }
+
+    private fun updateEmptyState(isEmpty: Boolean) {
+        binding.emptyTextView.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        binding.productsRecyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+    }
+
     private fun checkUserSession() {
-        if (auth.currentUser == null) {
+        // Criterio 1 HU 3.0: Redirigir a login si no hay sesión
+        if (!viewModel.isUserLoggedIn()) {
             navigateToLogin()
         }
     }
 
     private fun logout() {
-        auth.signOut()
+        viewModel.logout()
         navigateToLogin()
     }
 
@@ -56,6 +99,13 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun navigateToAddProduct() {
+    }
+
+    private fun navigateToDetail(productId: String) {
+    }
+
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
