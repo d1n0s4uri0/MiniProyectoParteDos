@@ -33,6 +33,19 @@
             android:name=".ui.home.HomeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <!-- DetailProductActivity -->
+        <activity
+            android:name=".ui.detail.DetailProductActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MiniProyectoParte2.NoActionBar" />
+
+        <!-- EditProductActivity -->
+        <activity
+        android:name=".ui.edit.EditProductActivity"
+        android:exported="false"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.MiniProyectoParte2.NoActionBar" />
 
         <!-- AddProductActivity -->
         <activity
