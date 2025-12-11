@@ -107,9 +107,11 @@ class HomeActivity : AppCompatActivity() {
     private fun navigateToDetail(product: Product) {
         val intent = Intent(this, DetailProductActivity::class.java)
         intent.putExtra("productId", product.id)
-        // por ahora NO mandes el producto completo para evitar problemas
+        intent.putExtra("product", product)
         startActivity(intent)
     }
+
+
 
     private fun navigateToAddProduct() {
         val intent = Intent(this, AddProductActivity::class.java)

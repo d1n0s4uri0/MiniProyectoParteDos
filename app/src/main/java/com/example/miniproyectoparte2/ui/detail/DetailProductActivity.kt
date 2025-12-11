@@ -22,27 +22,42 @@ class DetailProductActivity : AppCompatActivity() {
         binding = ActivityDetailProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //setSupportActionBar(binding.toolbarDetalle)
         binding.toolbarDetalle.setNavigationOnClickListener { finish() }
 
         productId = intent.getStringExtra("productId")
 
+        // 1. Recibir el Product completo que mandas desde HomeActivity
+        val productFromIntent =
+            intent.getSerializableExtra("product") as? com.example.miniproyectoparte2.data.model.Product
+        productFromIntent?.let { viewModel.setProductFromIntent(it) }
+
+        // 2. Observar y listeners
         setupObservers()
         setupListeners()
 
-        productId?.let { id ->
-            viewModel.loadProduct(id)
-        }
+        // 3. loadProduct ya no hace falta para mostrar datos, puedes quitar esto
+        // productId?.let { id ->
+        //     viewModel.loadProduct(id)
+        // }
     }
+
 
     private fun setupObservers() {
         viewModel.product.observe(this) { product ->
-            product ?: return@observe
+            if (product == null) return@observe
 
-
+            // Nombre en grande
             binding.txtNombre.text = product.name
-            binding.txtPrecio.text = product.price.toString()
-            binding.txtCantidad.text = product.quantity.toString()
+
+            // Formato de precio, cantidad y total como en el ejemplo
+            val precioTexto = "Precio Unidad :    $ ${product.price}"
+            val cantidadTexto = "Cantidad Disponible:    ${product.quantity}"
+            val total = product.price * product.quantity
+            val totalTexto = "Total:    $ $total"
+
+            binding.txtPrecio.text = precioTexto
+            binding.txtCantidad.text = cantidadTexto
+            binding.txtTotal.text = totalTexto
         }
 
         viewModel.deleteState.observe(this) { state ->
