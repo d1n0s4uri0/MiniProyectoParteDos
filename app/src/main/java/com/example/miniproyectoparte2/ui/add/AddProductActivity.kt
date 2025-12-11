@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.miniproyectoparte2.databinding.ActivityAddProductBinding
+import com.example.miniproyectoparte2.ui.widget.InventoryWidget
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -102,6 +103,7 @@ class AddProductActivity : AppCompatActivity() {
             is AddProductViewModel.SaveState.Success -> {
                 showLoading(false)
                 Toast.makeText(this, "Producto guardado", Toast.LENGTH_SHORT).show()
+                InventoryWidget.updateWidget(this)
                 finish()
             }
             is AddProductViewModel.SaveState.Error -> {

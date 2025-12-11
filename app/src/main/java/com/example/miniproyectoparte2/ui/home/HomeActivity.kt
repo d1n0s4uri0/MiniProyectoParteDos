@@ -12,6 +12,7 @@ import com.example.miniproyectoparte2.ui.add.AddProductActivity
 import com.example.miniproyectoparte2.ui.auth.LoginActivity
 import com.example.miniproyectoparte2.ui.detail.DetailProductActivity
 import dagger.hilt.android.AndroidEntryPoint
+import com.example.miniproyectoparte2.ui.widget.InventoryWidget
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -36,6 +37,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.loadProducts()
+        InventoryWidget.updateWidget(this)
     }
 
     private fun setupUI() {

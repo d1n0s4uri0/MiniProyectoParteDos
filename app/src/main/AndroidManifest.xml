@@ -56,12 +56,13 @@
 
         <!-- Widget Inventory -->
         <receiver
-            android:name=".widget.InventoryWidgetProvider"
+            android:name=".ui.widget.InventoryWidget"
             android:exported="true">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.miniproyectoparte2.ACTION_TOGGLE" />
+                <action android:name="com.example.miniproyectoparte2.ACTION_MANAGE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/inventory_widget_info" />

@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.miniproyectoparte2.databinding.ActivityDetailProductBinding
 import com.example.miniproyectoparte2.ui.edit.EditProductActivity
+import com.example.miniproyectoparte2.ui.widget.InventoryWidget
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,6 +69,7 @@ class DetailProductActivity : AppCompatActivity() {
                 is DetailProductViewModel.DeleteState.Success -> {
                     Toast.makeText(this, "Producto eliminado", Toast.LENGTH_SHORT).show()
                     setResult(RESULT_OK)
+                    InventoryWidget.updateWidget(this)
                     finish()
                 }
                 is DetailProductViewModel.DeleteState.Error -> {
