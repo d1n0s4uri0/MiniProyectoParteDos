@@ -1,7 +1,7 @@
 package com.example.miniproyectoparte2
 
 
-import com.example.miniproyectoparte2.TestCoroutineRule
+
 import com.example.miniproyectoparte2.data.source.AuthDataSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
