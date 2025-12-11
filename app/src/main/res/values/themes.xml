@@ -13,4 +13,10 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- MISMA APP, PERO SIN ACTION BAR -->
+    <style name="Theme.MiniProyectoParte2.NoActionBar" parent="Theme.MiniProyectoParte2">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

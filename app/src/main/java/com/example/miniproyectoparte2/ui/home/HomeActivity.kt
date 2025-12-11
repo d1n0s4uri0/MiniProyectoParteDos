@@ -6,10 +6,13 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.miniproyectoparte2.data.model.Product
 import com.example.miniproyectoparte2.databinding.ActivityHomeBinding
 import com.example.miniproyectoparte2.ui.add.AddProductActivity
 import com.example.miniproyectoparte2.ui.auth.LoginActivity
+import com.example.miniproyectoparte2.ui.detail.DetailProductActivity
 import dagger.hilt.android.AndroidEntryPoint
+import com.example.miniproyectoparte2.ui.widget.InventoryWidget
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -34,6 +37,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.loadProducts()
+        InventoryWidget.updateWidget(this)
     }
 
     private fun setupUI() {
@@ -42,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         productAdapter = ProductAdapter { product ->
-            navigateToDetail(product.id)
+            navigateToDetail(product)
         }
 
         binding.productsRecyclerView.apply {
@@ -102,14 +106,19 @@ class HomeActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun navigateToDetail(product: Product) {
+        val intent = Intent(this, DetailProductActivity::class.java)
+        intent.putExtra("productId", product.id)
+        intent.putExtra("product", product)
+        startActivity(intent)
+    }
+
+
+
     private fun navigateToAddProduct() {
         val intent = Intent(this, AddProductActivity::class.java)
         startActivity(intent)
     }
-
-    private fun navigateToDetail(productId: String) {
-    }
-
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {

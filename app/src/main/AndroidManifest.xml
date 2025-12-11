@@ -33,6 +33,19 @@
             android:name=".ui.home.HomeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <!-- DetailProductActivity -->
+        <activity
+            android:name=".ui.detail.DetailProductActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MiniProyectoParte2.NoActionBar" />
+
+        <!-- EditProductActivity -->
+        <activity
+        android:name=".ui.edit.EditProductActivity"
+        android:exported="false"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.MiniProyectoParte2.NoActionBar" />
 
         <!-- AddProductActivity -->
         <activity
@@ -40,6 +53,20 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- Widget Inventory -->
+        <receiver
+            android:name=".ui.widget.InventoryWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.miniproyectoparte2.ACTION_TOGGLE" />
+                <action android:name="com.example.miniproyectoparte2.ACTION_MANAGE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/inventory_widget_info" />
+        </receiver>
 
     </application>
 

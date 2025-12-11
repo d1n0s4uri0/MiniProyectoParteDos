@@ -10,9 +10,12 @@ import javax.inject.Singleton
 class ProductRepository @Inject constructor(
     private val productDataSource: ProductDataSource
 ) {
+
     fun getProducts(userId: String): Flow<List<Product>> {
         return productDataSource.getProducts(userId)
     }
+
+
 
     suspend fun addProduct(product: Product, userId: String): Result<Unit> {
         return productDataSource.addProduct(product, userId)
