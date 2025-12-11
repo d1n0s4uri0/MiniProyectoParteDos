@@ -23,30 +23,32 @@ class EditProductActivity : AppCompatActivity() {
         binding = ActivityEditProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //setSupportActionBar(binding.toolbarEditar)
         binding.toolbarEditar.setNavigationOnClickListener { finish() }
 
         productId = intent.getStringExtra("productId")
 
-        // Cargar el producto con ese id
-        productId?.let { id ->
-            viewModel.loadProduct(id)
-        }
+        // Recibir el Product enviado desde DetailProductActivity
+        val productFromIntent =
+            intent.getSerializableExtra("product") as? Product
+        productFromIntent?.let { viewModel.setProductFromIntent(it) }
 
         setupObservers()
         setupListeners()
     }
 
-
     private fun setupObservers() {
         viewModel.product.observe(this) { product ->
-            product ?: return@observe
+            if (product == null) {
+                Toast.makeText(this, "Producto nulo en editar", Toast.LENGTH_SHORT).show()
+                return@observe
+            }
 
-
+            binding.txtId.text = "Id: ${product.id}"
             binding.edtNombre.setText(product.name)
             binding.edtPrecio.setText(product.price.toString())
             binding.edtCantidad.setText(product.quantity.toString())
         }
+
 
         viewModel.updateState.observe(this) { state ->
             when (state) {

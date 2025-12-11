@@ -92,8 +92,10 @@ class DetailProductActivity : AppCompatActivity() {
 
             val intent = Intent(this, EditProductActivity::class.java)
             intent.putExtra("productId", current.id)
+            intent.putExtra("product", current)   // enviar el objeto completo
             startActivity(intent)
         }
+
 
 
     }
